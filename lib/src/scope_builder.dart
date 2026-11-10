@@ -1,17 +1,22 @@
 import 'package:flutter/widgets.dart';
 import '../scoper.dart';
 
+/// Builds a widget from the current state of [scope].
 typedef ScopeBuilderFunction<S> = Widget Function(
   BuildContext context,
   S scope,
 );
 
+/// Calls [builder] again whenever the scope of type [S] calls
+/// [Scope.notifyBuilders].
 class ScopeBuilder<S extends Scope> extends StatefulWidget {
   @override
   _ScopeBuilderState<S> createState() => _ScopeBuilderState<S>(builder);
 
+  /// Called on every rebuild with the current scope.
   final ScopeBuilderFunction<S> builder;
 
+  /// Creates a widget that rebuilds with the registered scope of type [S].
   ScopeBuilder({
     required this.builder,
   });

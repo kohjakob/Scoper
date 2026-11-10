@@ -38,20 +38,20 @@ dart pub publish
 ## Usage
 
 Create custom `ExampleScope` by extending `Scope`.
-Use `notifiyBuilders()` to trigger rebuild of `ScopeBuilder<ExampleScope>`.
-Use `notifiyExecutors()` to trigger execution of `ScopeExecutor<ExampleScope>`.
+Use `notifyBuilders()` to trigger rebuild of `ScopeBuilder<ExampleScope>`.
+Use `notifyExecutors()` to trigger execution of `ScopeExecutor<ExampleScope>`.
 
-```
+```dart
 class CounterScope extends Scope {
   int _counter = 0;
   int _divider = 7;
 
   increment() {
     _counter++;
-    notifiyBuilders();
+    notifyBuilders();
 
     if(_counter % _divider == 0) {
-      notifiyExecutors();
+      notifyExecutors();
     }
   }
 
@@ -62,7 +62,7 @@ class CounterScope extends Scope {
 
 Register your scopes by passing them to a `ScopeRegistrant` at the root of the widget-tree.
 
-```
+```dart
 ScopeRegistrant(
     scopes: [
         CounterScope(),
@@ -76,7 +76,7 @@ ScopeRegistrant(
 
 Use a `ScopeBuilder<ExampleScope>` to build widgets depending on the given scope.
 
-```
+```dart
 ScopeBuilder<CounterScope>(
     builder: (context, scope) {
         return Text(scope.counter.toString());
@@ -86,7 +86,7 @@ ScopeBuilder<CounterScope>(
 
 Use a `ScopeExecutor<ExampleScope>` to execute certain logic depending on the given scope.
 
-```
+```dart
 ScopeExecutor<CounterScope>(
     executor: (context, scope) {
       final message = "This number is divisible by " + scope.divider.toString();
@@ -101,6 +101,6 @@ ScopeExecutor<CounterScope>(
 
 Use `get<ExampleScope>` to get a scope from `context` and call its methods (for example in onPressed).
 
-```
+```dart
 context.get<CounterScope>().increment(),
 ```

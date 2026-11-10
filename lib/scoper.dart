@@ -1,3 +1,8 @@
+/// Minimal state management for Flutter.
+///
+/// Extend [Scope] for your state, register it with a [ScopeRegistrant],
+/// then rebuild widgets with [ScopeBuilder] or run side effects with
+/// [ScopeExecutor].
 library scoper;
 
 export 'src/extensions.dart';

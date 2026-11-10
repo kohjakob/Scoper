@@ -1,19 +1,27 @@
 import 'package:flutter/widgets.dart';
 import '../scoper.dart';
 
+/// Runs a side effect, such as showing a snack bar, with [scope].
 typedef ScopeExecutorFunction<S> = void Function(
   BuildContext context,
   S scope,
 );
 
+/// Calls [executor] whenever the scope of type [S] calls
+/// [Scope.notifyExecutors], without rebuilding [child].
 class ScopeExecutor<S extends Scope> extends StatefulWidget {
   @override
   _ScopeExecutorState<S> createState() =>
       _ScopeExecutorState<S>(executor, child);
 
+  /// Called each time the scope notifies its executors.
   final ScopeExecutorFunction<S> executor;
+
+  /// Shown unchanged below this widget.
   final Widget child;
 
+  /// Creates a widget that runs [executor] for the registered scope of
+  /// type [S].
   ScopeExecutor({
     required this.executor,
     required this.child,
