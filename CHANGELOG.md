@@ -1,3 +1,5 @@
+## [0.1.0] - Docs, return types and Dart 3 support (Nov 10, 2026)
+
 ## [0.0.2+1] - Updated README.md (Apr 24, 2021)
 
 ## [0.0.2+0] - Added ScopeExecutor (Apr 24, 2021)

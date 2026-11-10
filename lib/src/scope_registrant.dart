@@ -1,7 +1,12 @@
 import 'package:flutter/widgets.dart';
 import '../scoper.dart';
 
+/// Makes scopes available to every widget below it.
+///
+/// Place it near the root of the widget tree. Scopes are stored by their
+/// runtime type, so register one instance per type.
 class ScopeRegistrant extends InheritedWidget {
+  /// The registered scopes, keyed by runtime type.
   final Map<Type, Scope> map = {};
 
   @override
@@ -9,6 +14,7 @@ class ScopeRegistrant extends InheritedWidget {
     return true;
   }
 
+  /// Registers [scopes] for [child] and every widget below it.
   ScopeRegistrant({
     required Widget child,
     List<Scope>? scopes,
@@ -19,9 +25,14 @@ class ScopeRegistrant extends InheritedWidget {
     });
   }
 
+  /// Returns the nearest [ScopeRegistrant] above [context], or null.
   static ScopeRegistrant? of(BuildContext context) =>
       context.dependOnInheritedWidgetOfExactType<ScopeRegistrant>();
 
+  /// Returns the scope of type [T] from the nearest [ScopeRegistrant] above
+  /// [context].
+  ///
+  /// Throws if there is no registrant, or if [T] isn't registered with it.
   static T get<T>(BuildContext context) {
     ScopeRegistrant? registrant = of(context);
     if (registrant != null) {
